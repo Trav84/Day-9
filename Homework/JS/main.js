@@ -8,41 +8,13 @@ function rot13Encoder (undecodedString) {
 
 	var storeVal = 0;
 	var decodedName = '';
-	var maxLowercaseValue = 'm'.charCodeAt();
-	var maxUppercaseValue = ' M'.charCodeAt();
-	console.log(maxUppercaseValue);
-	console.log(maxLowercaseValue);
-
-
-	for(var i = 0; i < undecodedString.length; i++) {
-
-		storeVal = undecodedString.charCodeAt(i);
-
-		if (storeVal > maxLowercaseValue) {
-			storeVal -= 13;
-		} 
-		
-		else {
-			storeVal +=13;
-		}
-		
-		decodedName = decodedName + String.fromCharCode(storeVal);
-
-	}
-	return decodedName;
-}
-
-function Encoder (undecodedString) {
-
-	var storeVal = 0;
-	var decodedName = '';
 	var lowerMin = 'a'.charCodeAt();
 	var lowerMiddle = 'm'.charCodeAt();
 	var lowerMax = 'z'.charCodeAt();
 	var upperMin = 'A'.charCodeAt();
 	var upperMiddle = 'M'.charCodeAt();
 	var upperMax = 'Z'.charCodeAt();
-
+	console.log
 
 	for(var i = 0; i < undecodedString.length; i++) {
 
@@ -72,6 +44,48 @@ function Encoder (undecodedString) {
 		
 	}
 	return decodedName;
+}
+
+function rot13Decoder (encodedString) {
+
+	var storeVal = 0;
+	var codedString = '';
+	var lowerMin = 'a'.charCodeAt();
+	var lowerMiddle = 'm'.charCodeAt();
+	var lowerMax = 'z'.charCodeAt();
+	var upperMin = 'A'.charCodeAt();
+	var upperMiddle = 'M'.charCodeAt();
+	var upperMax = 'Z'.charCodeAt();
+
+
+	for(var i = 0; i < encodedString.length; i++) {
+
+		storeVal = encodedString.charCodeAt(i);
+
+		if (storeVal >= lowerMin && storeVal <= lowerMax) {
+
+			if (storeVal <= lowerMiddle ) {
+				storeVal +=13;
+				codedString = codedString + String.fromCharCode(storeVal);
+			} else {
+				storeVal -=13;
+				codedString = codedString + String.fromCharCode(storeVal);
+			}
+		}
+
+		else if (storeVal >= upperMin && storeVal <= upperMax) {
+
+			if (storeVal <= upperMiddle) {
+				storeVal += 13;
+				codedString = codedString + String.fromCharCode(storeVal);
+			} else {
+				storeVal -=13;
+				codedString = codedString + String.fromCharCode(storeVal);
+			}
+		}
+		
+	}
+	return codedString;
 }
 
 //else if ((storeVal > maxLowercaseValue) && (storeVal > maxUppercaseValue)) {
