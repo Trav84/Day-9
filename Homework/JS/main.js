@@ -7,7 +7,7 @@ function randomPick(array) {
 		throw 'You did not enter an array.';
 	}
 	//function
-	
+
 	var randomNum = Math.floor(Math.random() * array.length);
 	return array[randomNum];
 }
@@ -128,8 +128,101 @@ function rot13Decoder (encodedString) {
 	return codedString;
 }
 
-//else if ((storeVal > maxLowercaseValue) && (storeVal > maxUppercaseValue)) {
-			//storeVal -=26;
+function rotN (undecodedString, rotateNum) {
+
+	//variable declartions
+
+	var storeVal = 0;
+	var codedString = '';
+	var lowerMin = 'a'.charCodeAt();
+	var lowerMiddle = 'm'.charCodeAt() + (rotateNum-13);
+	var lowerMax = 'z'.charCodeAt();
+	var upperMin = 'A'.charCodeAt();
+	var upperMiddle = 'M'.charCodeAt() + (rotateNum-13);
+	var upperMax = 'Z'.charCodeAt();
+
+	//data validation
+
+	if (typeof(undecodedString) != 'string') {
+		throw 'You did not enter a string.'
+	} else if (typeof rotateNum !== 'number') {
+		throw "You need to enter a number as a variable to rotate by";
+	}
+
+	for (var y =0; y < undecodedString.length; y++) {
+
+		if ((undecodedString[y].charCodeAt() > lowerMax) || (undecodedString[y].charCodeAt() < upperMin)) {
+			throw 'You can only encode letters from a to z (or uppercase A to Z)';
+		}
+	}
+
+	//function
+
+	for(var i = 0; i < undecodedString.length; i++) {
+
+		storeVal = undecodedString.charCodeAt(i);
+
+		if (storeVal >= lowerMin && storeVal <= lowerMax) {
+
+			if (storeVal <= lowerMiddle ) {
+				storeVal +=rotateNum;
+				codedString = codedString + String.fromCharCode(storeVal);
+			} else {
+				storeVal -=rotateNum;
+				codedString = codedString + String.fromCharCode(storeVal);
+			}
+		}
+
+		else if (storeVal >= upperMin && storeVal <= upperMax) {
+
+			if (storeVal <= upperMiddle) {
+				storeVal += rotateNum;
+				codedString = codedString + String.fromCharCode(storeVal);
+			} else {
+				storeVal -=rotateNum;
+				codedString = codedString + String.fromCharCode(storeVal);
+			}
+		}
+		
+	}
+	return codedString;
+
+}
+
+function randomStudent (studentArray) {
+
+	//variable declaration
+
+	var randomPair = [];
+	var newArray = [];
+	var arrayLength = studentArray.length;
+	var randomNum = 0;
+
+	//data validation
+
+	if (typeof studentArray != 'object') {
+		throw 'You did not enter an array.';
+	}
+
+	//function 
+
+	for(var i = 0; i < arrayLength; i++) {
+
+		randomNum = Math.floor(Math.random() * studentArray.length);
+
+		while (randomNum == (studentArray.length)-1 && studentArray.length != 1) {	
+			randomNum = Math.floor(Math.random() * studentArray.length);
+		}
+
+		randomPair = studentArray.splice(randomNum, 2);
+		newArray[i] = randomPair;
+	}
+
+	return newArray;
+
+}
+
+
 
 // console.log(name);
 // var myArray = [1,true,"string"];
