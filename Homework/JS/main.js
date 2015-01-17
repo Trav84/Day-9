@@ -1,10 +1,20 @@
 
 function randomPick(array) {
+
+	//data validation
+
+	if (typeof(array) !== 'object') {
+		throw 'You did not enter an array.';
+	}
+	//function
+	
 	var randomNum = Math.floor(Math.random() * array.length);
 	return array[randomNum];
 }
 
 function rot13Encoder (undecodedString) {
+
+	//variable declaration
 
 	var storeVal = 0;
 	var decodedName = '';
@@ -14,7 +24,21 @@ function rot13Encoder (undecodedString) {
 	var upperMin = 'A'.charCodeAt();
 	var upperMiddle = 'M'.charCodeAt();
 	var upperMax = 'Z'.charCodeAt();
-	console.log
+
+	//data validation
+
+	if (typeof(undecodedString) != 'string') {
+		throw 'You did not enter a string.'
+	} 
+
+	for (var y =0; y < undecodedString.length; y++) {
+
+		if ((undecodedString[y].charCodeAt() > lowerMax) || (undecodedString[y].charCodeAt() < upperMin)) {
+			throw 'You can only encode letters from a to z (or uppercase A to Z)';
+		}
+	}
+
+	//function
 
 	for(var i = 0; i < undecodedString.length; i++) {
 
@@ -48,6 +72,8 @@ function rot13Encoder (undecodedString) {
 
 function rot13Decoder (encodedString) {
 
+	//variable declartions
+
 	var storeVal = 0;
 	var codedString = '';
 	var lowerMin = 'a'.charCodeAt();
@@ -57,6 +83,20 @@ function rot13Decoder (encodedString) {
 	var upperMiddle = 'M'.charCodeAt();
 	var upperMax = 'Z'.charCodeAt();
 
+	//data validation
+
+	if (typeof(encodedString) != 'string') {
+		throw 'You did not enter a string.'
+	} 
+
+	for (var y =0; y < encodedString.length; y++) {
+
+		if ((encodedString[y].charCodeAt() > lowerMax) || (encodedString[y].charCodeAt() < upperMin)) {
+			throw 'You can only encode letters from a to z (or uppercase A to Z)';
+		}
+	}
+
+	//function
 
 	for(var i = 0; i < encodedString.length; i++) {
 
