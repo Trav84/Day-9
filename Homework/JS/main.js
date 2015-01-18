@@ -222,7 +222,23 @@ function randomStudent (studentArray) {
 
 }
 
+function dashString(string) {
 
+	//variable declaration
+
+	var arrayOfString = string.split('');
+
+	//data validation
+
+	if (typeof string != 'string') {
+		throw 'You did not enter an string.';
+	}
+
+	//function 
+
+	return arrayOfString.join('-');
+
+}
 
 // console.log(name);
 // var myArray = [1,true,"string"];
