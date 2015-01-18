@@ -1,4 +1,4 @@
-
+//Function 1
 function randomPick(array) {
 
 	//data validation
@@ -11,7 +11,7 @@ function randomPick(array) {
 	var randomNum = Math.floor(Math.random() * array.length);
 	return array[randomNum];
 }
-
+//Function 2
 function rot13Encoder (undecodedString) {
 
 	//variable declaration
@@ -69,7 +69,7 @@ function rot13Encoder (undecodedString) {
 	}
 	return decodedName;
 }
-
+//Function 3
 function rot13Decoder (encodedString) {
 
 	//variable declartions
@@ -127,7 +127,7 @@ function rot13Decoder (encodedString) {
 	}
 	return codedString;
 }
-
+//Function 4
 function rotN (undecodedString, rotateNum) {
 
 	//variable declartions
@@ -188,7 +188,7 @@ function rotN (undecodedString, rotateNum) {
 	return codedString;
 
 }
-
+//Function 5
 function randomStudent (studentArray) {
 
 	//variable declaration
@@ -221,7 +221,7 @@ function randomStudent (studentArray) {
 	return newArray;
 
 }
-
+//Function 6
 function dashString(string) {
 
 	//variable declaration
@@ -238,6 +238,27 @@ function dashString(string) {
 
 	return arrayOfString.join('-');
 
+}
+//Function 7
+function noJoinString(string) {
+
+	//variable declaration
+
+	var newString = '';
+
+	//data validation
+
+	if (typeof string != 'string') {
+		throw 'You did not enter an string.';
+	}
+
+	//function
+
+	for(var i =0; i < string.length; i++) {
+        newString += string.slice(i, i+1)+"-";
+	}
+	newString = newString.slice(0,-1);
+	return newString;
 }
 
 // console.log(name);
