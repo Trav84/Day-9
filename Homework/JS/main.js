@@ -260,6 +260,28 @@ function noJoinString(string) {
 	newString = newString.slice(0,-1);
 	return newString;
 }
+//Function 8
+function noJoin2Strings(string1, string2) {
+
+	//variable declaration
+
+	var combinedString = string1 + string2;
+	var newString = '';
+
+	//data validation
+
+	if (typeof string1 != 'string' || typeof string2 != 'string') {
+		throw 'You did not enter an string.';
+	}
+
+	//function
+
+	for(var i =0; i < combinedString.length; i++) {
+        newString += combinedString.slice(i, i+1)+"-";
+	}
+	newString = newString.slice(0,-1);
+	return newString;
+}
 
 // console.log(name);
 // var myArray = [1,true,"string"];
