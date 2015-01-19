@@ -135,11 +135,16 @@ function rotN (undecodedString, rotateNum) {
 	var storeVal = 0;
 	var codedString = '';
 	var lowerMin = 'a'.charCodeAt();
-	var lowerMiddle = 'm'.charCodeAt() + (rotateNum-13);
+	var lowerMiddle = 'm'.charCodeAt() //+ (rotateNum-13);
 	var lowerMax = 'z'.charCodeAt();
 	var upperMin = 'A'.charCodeAt();
-	var upperMiddle = 'M'.charCodeAt() + (rotateNum-13);
+	var upperMiddle = 'M'.charCodeAt() //+ (rotateNum-13);
 	var upperMax = 'Z'.charCodeAt();
+
+	console.log(lowerMin);
+	console.log(lowerMax);	
+	console.log('m'.charCodeAt());
+	console.log(lowerMiddle);
 
 	//data validation
 
@@ -164,7 +169,7 @@ function rotN (undecodedString, rotateNum) {
 
 		if (storeVal >= lowerMin && storeVal <= lowerMax) {
 
-			if (storeVal <= lowerMiddle ) {
+			if (storeVal < lowerMiddle ) {
 				storeVal +=rotateNum;
 				codedString = codedString + String.fromCharCode(storeVal);
 			} else {
@@ -282,38 +287,3 @@ function noJoin2Strings(string1, string2) {
 	newString = newString.slice(0,-1);
 	return newString;
 }
-
-// console.log(name);
-// var myArray = [1,true,"string"];
-
-// var anotherArray = [1,2,3,4];
-// concat will cocatonate arrays
-
-// var finalArray = myArray.concat(anotherArray);
-
-// var aIndex = finalArray.indexOf('a');
-// console.log(finalArray[1].charAt(5));
-// console.log(aIndex);
-
-// var newArray = ['a', 'r', 'f' ,'we'];
-// console.log(newArray);
-// console.log(newArray.join('-')); // .join =  convert array into a string then add the argument inbetween each element and convert it to string 
-
-// var mysteryValue  = finalArray.pop(); //pop off the last element of an array
-
-// push adds to the end of an array. Push will nest an array into an array, not add it like concat will.
-// reference nested elements in the array with chain brackets [] [] []
-// gets the range without altering the original array aka slice(0, 5);
-// splice = start position and then number of things to cut out (remove) from the array. 
-// shift = remove from front of array
-// unshift = takes a value like ('Ryan'); adds to the front of an array. Can take multiple values.
-
-
-
-
-
-// $( document ).ready(function() {
-
-// 	$('#score-box').append(numberGame());
-	
-// });
