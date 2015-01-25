@@ -1,9 +1,11 @@
+$( document ).ready(function() {
+
 //Function 1
 function randomPick(array) {
 
 	//data validation
 
-	if (typeof(array) !== 'object') {
+	if (array.constructor !== Array) {
 		throw 'You did not enter an array.';
 	}
 	//function
@@ -11,6 +13,15 @@ function randomPick(array) {
 	var randomNum = Math.floor(Math.random() * array.length);
 	return array[randomNum];
 }
+
+$('#f1').click(function() {
+	var textInput = $('#enter1').val();
+	textArray = textInput.split(',');
+	console.log(textArray);
+	$('#result1').val(randomPick(textArray));
+});
+
+
 //Function 2
 function rot13Encoder (undecodedString) {
 
@@ -28,7 +39,7 @@ function rot13Encoder (undecodedString) {
 	//data validation
 
 	if (typeof(undecodedString) != 'string') {
-		throw 'You did not enter a string.'
+		throw 'You did not enter a string.';
 	} 
 
 	for (var y =0; y < undecodedString.length; y++) {
@@ -69,6 +80,12 @@ function rot13Encoder (undecodedString) {
 	}
 	return decodedName;
 }
+
+$('#f2').click(function() {
+	var textInput = $('#enter2').val();
+	$('#result2').val(rot13Encoder(textInput));
+});
+
 //Function 3
 function rot13Decoder (encodedString) {
 
@@ -86,7 +103,7 @@ function rot13Decoder (encodedString) {
 	//data validation
 
 	if (typeof(encodedString) != 'string') {
-		throw 'You did not enter a string.'
+		throw 'You did not enter a string.';
 	} 
 
 	for (var y =0; y < encodedString.length; y++) {
@@ -127,80 +144,75 @@ function rot13Decoder (encodedString) {
 	}
 	return codedString;
 }
+
+$('#f3').click(function() {
+	var textInput = $('#enter3').val();
+	$('#result3').val(rot13Decoder(textInput));
+});
+
 //Function 4
-function rotN (undecodedString, rotateNum) {
+function rotN (unencrypted, n) {
 
-	//variable declartions
-
-	var storeVal = 0;
-	var codedString = '';
-	var lowerMin = 'a'.charCodeAt();
-	var lowerMiddle = 'm'.charCodeAt() //+ (rotateNum-13);
-	var lowerMax = 'z'.charCodeAt();
-	var upperMin = 'A'.charCodeAt();
-	var upperMiddle = 'M'.charCodeAt() //+ (rotateNum-13);
-	var upperMax = 'Z'.charCodeAt();
-
-	console.log(lowerMin);
-	console.log(lowerMax);	
-	console.log('m'.charCodeAt());
-	console.log(lowerMiddle);
-
-	//data validation
-
-	if (typeof(undecodedString) != 'string') {
-		throw 'You did not enter a string.'
-	} else if (typeof rotateNum !== 'number') {
-		throw "You need to enter a number as a variable to rotate by";
+	if(unencrypted === undefined) {
+		throw 'You must enter string to encrypt.';
 	}
 
-	for (var y =0; y < undecodedString.length; y++) {
+	if(typeof unencrypted !== 'string') {
+		throw 'The first argument must be a string';
+	}
 
-		if ((undecodedString[y].charCodeAt() > lowerMax) || (undecodedString[y].charCodeAt() < upperMin)) {
-			throw 'You can only encode letters from a to z (or uppercase A to Z)';
+	for(var i=0; i<unencrypted.length; i++) {
+		var targetCharacter = unencrypted.charAt(i);
+		targetCharacter = targetCharacter.toLowerCase();
+		var targetCharacterCode = targetCharacter.charCodeAt(0);
+		if(targetCharacterCode < 97 || targetCharacterCode > 122) {
+			throw 'The unencrypted string can only have a-z or A-Z';
 		}
 	}
 
-	//function
+	var encrypted = '';
 
-	for(var i = 0; i < undecodedString.length; i++) {
+	for(var i=0; i<unencrypted.length; i++) {
+		var charCode = unencrypted.charCodeAt(i);
+		if(charCode >= 65 && charCode <= 90) {
 
-		storeVal = undecodedString.charCodeAt(i);
+			var translatedCharcode = charCode - 65;
+			translatedCharcode += n;
+			translatedCharcode %= 26;
 
-		if (storeVal >= lowerMin && storeVal <= lowerMax) {
-
-			if (storeVal < lowerMiddle ) {
-				storeVal +=rotateNum;
-				codedString = codedString + String.fromCharCode(storeVal);
-			} else {
-				storeVal -=rotateNum;
-				codedString = codedString + String.fromCharCode(storeVal);
-			}
+			encrypted += String.fromCharCode(translatedCharcode+65);
 		}
 
-		else if (storeVal >= upperMin && storeVal <= upperMax) {
+		else if(charCode >= 97 && charCode <= 122) {
 
-			if (storeVal <= upperMiddle) {
-				storeVal += rotateNum;
-				codedString = codedString + String.fromCharCode(storeVal);
-			} else {
-				storeVal -=rotateNum;
-				codedString = codedString + String.fromCharCode(storeVal);
-			}
+			var translatedCharcode = charCode - 97;
+			translatedCharcode += n;
+			translatedCharcode %= 26;
+
+			encrypted += String.fromCharCode(translatedCharcode+97);
 		}
-		
 	}
-	return codedString;
 
+
+
+	return encrypted; 
 }
+
+$('#f4').click(function() {
+	var textInput = $('#enter4').val();
+	var numInput = $('#enter4-1').val();
+	numInput = parseInt(numInput);
+	$('#result4').val(rotN(textInput,numInput));
+});
+
+
 //Function 5
 function randomStudent (studentArray) {
 
 	//variable declaration
 
 	var randomPair = [];
-	var newArray = [];
-	var arrayLength = studentArray.length;
+	var resultArray = [];
 	var randomNum = 0;
 
 	//data validation
@@ -209,23 +221,35 @@ function randomStudent (studentArray) {
 		throw 'You did not enter an array.';
 	}
 
+
 	//function 
+	for(var i = 0; i <= studentArray.length; i++) {
 
-	for(var i = 0; i < arrayLength; i++) {
-
+		var randomPair = [];
 		randomNum = Math.floor(Math.random() * studentArray.length);
 
-		while (randomNum == (studentArray.length)-1 && studentArray.length != 1) {	
-			randomNum = Math.floor(Math.random() * studentArray.length);
-		}
-
-		randomPair = studentArray.splice(randomNum, 2);
-		newArray[i] = randomPair;
+		// while (randomNum == (studentArray.length)-1 && studentArray.length != 1) {	
+		// 	randomNum = Math.floor(Math.random() * studentArray.length);
+		// }
+		randomPair.push('[');
+		randomPair.push(studentArray.splice(randomNum, 1));
+		randomNum = Math.floor(Math.random() * studentArray.length);
+		randomPair.push(studentArray.splice(randomNum, 1));
+		randomPair.push(']');
+		resultArray[i] = randomPair;
+	
 	}
 
-	return newArray;
+	return resultArray;
 
 }
+
+$('#f5').click(function() {
+	var textInput = $('#enter5').val();
+	textArray = textInput.split(',');
+	$('#result5').val(randomStudent(textArray));
+});
+
 //Function 6
 function dashString(string) {
 
@@ -244,6 +268,12 @@ function dashString(string) {
 	return arrayOfString.join('-');
 
 }
+
+
+$('#f6').click(function() {
+	var textInput = $('#enter6').val();
+	$('#result6').val(dashString(textInput));
+});
 //Function 7
 function noJoinString(string) {
 
@@ -265,12 +295,19 @@ function noJoinString(string) {
 	newString = newString.slice(0,-1);
 	return newString;
 }
+
+$('#f7').click(function() {
+	var textInput = $('#enter7').val();
+	$('#result7').val(dashString(textInput));
+});
+
 //Function 8
 function noJoin2Strings(string1, string2) {
 
 	//variable declaration
 
 	var combinedString = string1 + string2;
+	console.log(combinedString);
 	var newString = '';
 
 	//data validation
@@ -287,3 +324,13 @@ function noJoin2Strings(string1, string2) {
 	newString = newString.slice(0,-1);
 	return newString;
 }
+
+$('#f8').click(function() {
+	var textInput = $('#enter8').val();
+	var textInput2 = $('#enter8-1').val();
+
+	$('#result8').val(noJoin2Strings(textInput,textInput2));
+});
+
+
+});

@@ -7,4 +7,20 @@ ol {
   list-style:none;
 }
 
+h1 {
+	text-align: center;
+}
+
+ul {
+	margin-top: 2em;
+}
+
+li {
+	margin-bottom:1.5em;
+}
+
+input {
+	margin-bottom: 1em;
+	margin-left:2em;
+}
 /*# sourceMappingURL=style.css.map */
