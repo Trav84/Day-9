@@ -211,9 +211,9 @@ function randomStudent (studentArray) {
 
 	//variable declaration
 
-	var randomPair = [];
 	var resultArray = [];
 	var randomNum = 0;
+	var length = studentArray.length;
 
 	//data validation
 
@@ -223,7 +223,7 @@ function randomStudent (studentArray) {
 
 
 	//function 
-	for(var i = 0; i <= studentArray.length; i++) {
+	for(var i = 0; i <= length; i++) {
 
 		var randomPair = [];
 		randomNum = Math.floor(Math.random() * studentArray.length);
